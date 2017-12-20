@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://example.org/test/</loc>
+    <lastmod>2017-12-20T22:49:43+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://example.org/posts/bombolizapost/</loc>
     <lastmod>2017-09-11T21:00:09+01:00</lastmod>
   </url>
@@ -14,7 +19,7 @@
   
   <url>
     <loc>http://example.org/</loc>
-    <lastmod>2017-09-11T21:00:09+01:00</lastmod>
+    <lastmod>2017-12-20T22:49:43+00:00</lastmod>
     <priority>0</priority>
   </url>
   
