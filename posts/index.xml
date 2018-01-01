@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My New Hugo Site</title>
-    <link>http://example.org/posts/</link>
+    <link>/posts/</link>
     <description>Recent content in Posts on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 11 Sep 2017 21:00:09 +0100</lastBuildDate>
     
-	<atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Titanic data analysis - by Gabriele</title>
-      <link>http://example.org/posts/bombolizapost/</link>
+      <link>/posts/bombolizapost/</link>
       <pubDate>Mon, 11 Sep 2017 21:00:09 +0100</pubDate>
       
-      <guid>http://example.org/posts/bombolizapost/</guid>
+      <guid>/posts/bombolizapost/</guid>
       <description>Analysis of age Below graph shows the distribution of the passengers&amp;rsquo; age
 Approximately half of the passengers were in their 20ties and 30ties
 The graph below shows the distribution of the age of female passengers who survived
