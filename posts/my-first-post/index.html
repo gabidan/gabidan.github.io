@@ -49,7 +49,7 @@ Exploratory data analysis I df=pd.read_csv(&#39;wineset.csv&#39;, header=None) d
 
 
 <meta itemprop="dateModified" content="2018-01-29T22:46:52&#43;00:00" />
-<meta itemprop="wordCount" content="1020">
+<meta itemprop="wordCount" content="1556">
 
 
 
@@ -547,6 +547,175 @@ sns.heatmap(corr, cmap=&quot;YlGnBu&quot;, annot = True)
 <ul>
 <li>scaling the data</li>
 </ul>
+
+<hr />
+
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+%matplotlib inline
+import matplotlib.pyplot as plt
+from pandas.tools.plotting import scatter_matrix
+from sklearn.cross_validation import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn import tree
+</code></pre>
+
+<p>KNN implementaion
+source : <a href="https://kevinzakka.github.io/2016/07/13/k-nearest-neighbor/">https://kevinzakka.github.io/2016/07/13/k-nearest-neighbor/</a></p>
+
+<p><strong>Step 1 - preparing the data</strong></p>
+
+<ul>
+<li><p>The data set will be split into 2 subsets to start with: Train and Validation</p></li>
+
+<li><p>In order to produce more meaningful results this step is performed to set aside a totally unseen data for the cross-validation of the model.</p></li>
+
+<li><p>Train subset will hold 120 observations, which is approx 68% of the orignal data set and will be used to train and test the model.</p></li>
+
+<li><p>Validation subset will be used to perform cross validation.</p></li>
+</ul>
+
+<pre><code class="language-python">Train = df.sample(n=120) 
+
+Validation = df.drop(Train.index) 
+</code></pre>
+
+<p><strong>Step 2 - building the model</strong></p>
+
+<ul>
+<li><p>First of all, data matrix will be assigned to variable X and target vector (response) will be assigned to variable y</p></li>
+
+<li><p>In order to build the model, Train subset will be further split into raining and testing parts, 70% and 30% respectively.</p></li>
+</ul>
+
+<pre><code class="language-python"># data matrix X and target vector y
+X = np.array(Train.ix[:, 1:13]) 
+y = np.array(Train['Type'])
+
+# splitting the data into training and test subsets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+</code></pre>
+
+<pre><code>C:\Users\Gabi\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: DeprecationWarning: 
+.ix is deprecated. Please use
+.loc for label based indexing or
+.iloc for positional indexing
+
+See the documentation here:
+http://pandas.pydata.org/pandas-docs/stable/indexing.html#deprecate_ix
+</code></pre>
+
+<pre><code class="language-python">from sklearn.neighbors import KNeighborsClassifier
+
+# instantiate learning model (k = 3)
+knn = KNeighborsClassifier(n_neighbors=3)
+
+# fitting the model
+knn.fit(X_train, y_train)
+
+# predict the response
+pred = knn.predict(X_test)
+
+# evaluate accuracy
+print (accuracy_score(y_test, pred))
+</code></pre>
+
+<pre><code>0.861111111111
+</code></pre>
+
+<p><strong>Step 3 - experiment with the model on scaled data</strong></p>
+
+<ul>
+<li>Data will be scaled in order to see whether this step improves the prediction accuracy</li>
+</ul>
+
+<pre><code class="language-python">#Fitting the model on scaled data 
+from sklearn.preprocessing import scale
+Xs = scale(X)
+Xs_train, Xs_test, y_train, y_test = train_test_split(Xs, y, test_size=0.2, random_state=42)
+</code></pre>
+
+<pre><code class="language-python">from sklearn.neighbors import KNeighborsClassifier
+
+# instantiate learning model (k = 3)
+knn1 = KNeighborsClassifier(n_neighbors=3)
+
+# fitting the model
+knn1.fit(Xs_train, y_train)
+
+# predict the response
+pred = knn1.predict(Xs_test)
+
+# evaluate accuracy
+print (accuracy_score(y_test, pred))
+</code></pre>
+
+<pre><code>0.916666666667
+</code></pre>
+
+<p><strong>Step 4 - Cross-validation I</strong></p>
+
+<ul>
+<li>We will be splitting the Validation subset, fitting a model and computing the score 10 consecutive times (cv=10)<br /></li>
+</ul>
+
+<pre><code class="language-python">#Performing cross validation on the unseen Validation subset, using unscaled data  
+
+Xval = np.array(Validation.ix[:, 1:13]) 
+yval = np.array(Validation['Type'])
+
+</code></pre>
+
+<pre><code class="language-python">knn_crs = KNeighborsClassifier(n_neighbors=3)
+Score = cross_val_score(knn_crs, Xval, yval, cv=10, scoring=&quot;accuracy&quot;)
+
+print(Score)  #return a np.array of each test trill
+print(Score.mean()) #return the average of the Score/out-of-sample accuracy
+</code></pre>
+
+<pre><code>[ 0.28571429  0.71428571  0.85714286  0.33333333  1.          0.66666667
+  0.6         1.          0.8         0.75      ]
+0.700714285714
+</code></pre>
+
+<p><strong>Step 5 - Cross-validation II</strong></p>
+
+<ul>
+<li><p>We will be looking for an optimum number of neighbors during the cross-validation process</p></li>
+
+<li><p>The number of neighbors will be stored in a variable <em>nb_list_odd</em>: off numbers between 1 and 50</p></li>
+</ul>
+
+<pre><code class="language-python">nb_list=list(range(1,50))
+nb_list_odd=list(filter(lambda x: x % 2 != 0, myList))
+</code></pre>
+
+<pre><code class="language-python">cv_scores=[]
+for k in nb_list_odd:
+    knn_crs_n = KNeighborsClassifier(n_neighbors=k)
+    scores = cross_val_score(knn_crs_n, Xval, yval, cv=10, scoring='accuracy')
+    cv_scores.append(scores.mean())
+</code></pre>
+
+<pre><code class="language-python"># changing to misclassification error
+MSE = [1 - x for x in cv_scores]
+
+# determining best k
+optimal_k = neighbors[MSE.index(min(MSE))]
+print (&quot;The optimal number of neighbors is %d&quot; % optimal_k)
+
+# plot misclassification error vs k
+plt.plot(neighbors, MSE)
+plt.xlabel('Number of Neighbors K')
+plt.ylabel('Misclassification Error')
+plt.show()
+</code></pre>
+
+<pre><code>The optimal number of neighbors is 1
+</code></pre>
+
+<p><img src="/images/output_17_1.png" alt="alt text" /></p>
 
       </div>
     </article>
