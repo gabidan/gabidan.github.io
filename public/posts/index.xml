@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on My New Hugo Site</title>
-    <link>http://example.org/posts/</link>
-    <description>Recent content in Posts on My New Hugo Site</description>
+    <title>Posts on Gabi&#39;s Data Science journey</title>
+    <link>https://gabidan.github.io/posts/</link>
+    <description>Recent content in Posts on Gabi&#39;s Data Science journey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 29 Jan 2018 22:46:52 +0000</lastBuildDate>
     
-	<atom:link href="http://example.org/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://gabidan.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>KNN - Python</title>
-      <link>http://example.org/posts/my-first-post/</link>
+      <link>https://gabidan.github.io/posts/my-first-post/</link>
       <pubDate>Mon, 29 Jan 2018 22:46:52 +0000</pubDate>
       
-      <guid>http://example.org/posts/my-first-post/</guid>
+      <guid>https://gabidan.github.io/posts/my-first-post/</guid>
       <description>Introduction This report tackles a data analysis problem deriving from the Wine Classification data set published by UC Irvine Machine Learning Repository - https://archive.ics.uci.edu/ml/index.php
 Exploratory data analysis I df=pd.read_csv(&#39;wineset.csv&#39;, header=None) df.columns=([&#39;Type&#39;, &#39;Alcohol&#39;, &#39;Malic&#39;, &#39;Ash&#39;, &#39;Alcalinity&#39;, &#39;Magnesium&#39;, &#39;Phenols&#39;, &#39;Flavanoids&#39;, &#39;Nonflavanoids&#39;, &#39;Proanthocyanins&#39;, &#39;Color&#39;, &#39;Hue&#39;, &#39;Dilution&#39;, &#39;Proline&#39;])  df.head()    .dataframe thead tr:only-child th { text-align: right; } .dataframe thead th { text-align: left; } .dataframe tbody tr th { vertical-align: top; }    Type Alcohol Malic Ash Alcalinity Magnesium Phenols Flavanoids Nonflavanoids Proanthocyanins Color Hue Dilution Proline     0 1 14.</description>
     </item>
