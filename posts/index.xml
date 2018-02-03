@@ -6,10 +6,26 @@
     <description>Recent content in Posts on Gabi Data Science journey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jan 2018 22:46:52 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Feb 2018 19:10:36 +0000</lastBuildDate>
     
 	<atom:link href="https://gabidan.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Deep learning and Neural Networks</title>
+      <link>https://gabidan.github.io/posts/my-2nd-post/</link>
+      <pubDate>Sat, 03 Feb 2018 19:10:36 +0000</pubDate>
+      
+      <guid>https://gabidan.github.io/posts/my-2nd-post/</guid>
+      <description>Source: https://www.youtube.com/watch?v=DBVLcgq2Eg0&amp;amp;t=477s
+Neural Networks:
+ Image Understanding (semantic segmentation - NN captures some details of the image)
+ Machine Translation
+ Smart Apps (image recognition using a camera, for example)
+ Robotics (NN network is learning a task from a video)
+ Synthesizing/generating faces
+ Image transformation (NN doesn&amp;rsquo;t know what is an object a or b, it learns both after getting it as an input and performs a transformation)</description>
+    </item>
     
     <item>
       <title>KNN - Python</title>
