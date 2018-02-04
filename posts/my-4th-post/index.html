@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Gabi Data Science journey  | Neural Network - Python</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.26" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    <link href='https://gabidan.github.io/dist/main.css' rel='stylesheet' type="text/css" />
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Neural Network - Python" />
+<meta property="og:description" content="This post further tackles the multi-class classification problem on the Wine Data set and is dedicated to Artificial Neural Networks.
+Artificial Neural Networks Using Python and Keras library: Normally used for big data sets - an approach of Deep Learning (a sub-discipline of Machine Learning) has been chosen in order to explore the performance on a smaller data set, in our case.
+The following methodology supports the use of NN in this problem:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gabidan.github.io/posts/my-4th-post/" />
+
+
+
+<meta property="article:published_time" content="2018-02-04T20:57:51&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-04T20:57:51&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Neural Network - Python">
+<meta itemprop="description" content="This post further tackles the multi-class classification problem on the Wine Data set and is dedicated to Artificial Neural Networks.
+Artificial Neural Networks Using Python and Keras library: Normally used for big data sets - an approach of Deep Learning (a sub-discipline of Machine Learning) has been chosen in order to explore the performance on a smaller data set, in our case.
+The following methodology supports the use of NN in this problem:">
+
+
+<meta itemprop="dateModified" content="2018-02-04T20:57:51&#43;00:00" />
+<meta itemprop="wordCount" content="2112">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Neural Network - Python"/>
+<meta name="twitter:description" content="This post further tackles the multi-class classification problem on the Wine Data set and is dedicated to Artificial Neural Networks.
+Artificial Neural Networks Using Python and Keras library: Normally used for big data sets - an approach of Deep Learning (a sub-discipline of Machine Learning) has been chosen in order to explore the performance on a smaller data set, in our case.
+The following methodology supports the use of NN in this problem:"/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://gabidan.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Gabi Data Science journey
+    </a>
+    <div class="flex-l items-center">
+      
+      
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <div class="flex-l mt2 mw8 center">
+    <article class="center cf pv5 ph3 ph4-ns mw7">
+      <header>
+        <p class="f6 b helvetica tracked">
+          POSTS
+        </p>
+        <h1 class="f1">
+          Neural Network - Python
+        </h1>
+      </header>
+      <div class="nested-copy-line-height lh-copy f4 nested-links nested-img mid-gray">
+        
+
+<p>This post further tackles the multi-class classification problem on the Wine Data set and is dedicated to Artificial Neural Networks.</p>
+
+<h4 id="artificial-neural-networks-using-python-and-keras-library">Artificial Neural Networks Using Python and Keras library:</h4>
+
+<p>Normally used for big data sets - an approach of Deep Learning (a sub-discipline of Machine Learning) has been chosen in order to explore the performance on a smaller data set, in our case.</p>
+
+<p>The following methodology supports the use of NN in this problem:</p>
+
+<p><strong>Data</strong></p>
+
+<ul>
+<li><p>We have explored that out data has some outliers, therefore using the scikit-learn module StandardScaler the data will be transformed for the neural network. LeCun, Bottou, Muller (2012) summarizes that the inputs for the training of the neural network should be shifted to have an average of 0, more so, Willems (2017) suggests that both: training and test data sets should be normalized equally to also handle the values that are far apart. Failing to perform the transformation of the data is likely to slow down the learning rate and may not produce accurate results. (LeCun, Bottou, Muller, 2012)</p></li>
+
+<li><p>One hot encoding: Brownlee (2016) suggest that good practise when dealing with multi-classification problems is to use one hot encoding on the response variable, which will essentially turn the multi-class array into a binary matrix. Note the choice of this encoding will be influencing the shape of the output layer of ort neural network, and will be referenced below.</p></li>
+</ul>
+
+<p><strong>Training, validation and testing</strong></p>
+
+<p>In order to explore the capabilities of the neural network the following approach will be taken:</p>
+
+<ul>
+<li><p>Split the data into train (40% of the observations), validation (40% of the observations), test (20% of the observations) subsets.</p></li>
+
+<li><p>The intention is to train the network and then carry out the validation and testing on truly unseen data. The split will be performed randomly, however, the aim is also to ensure that all 3 classes are represented fairly in training and testing subsets.</p></li>
+
+<li><p>The validation stage will involve k-fold validation, where the data will be split into 5 partitions (k=5). Our data set is small therefore a smaller number of partitions is chosen. This step will be performed using StratifiedKFoldtion module from the sklearn library in Python. It is important to note that during the validation stage we will be using the models built in the training step, however, the split into training and testing subsets will be performed by k-fold. In this instance, we will not be able to check if subsets represent the classes fairly.</p></li>
+
+<li><p>The testing on the final model/models will be performed on the remaining 20% of the observations, which were not used in the previous 2 stages. The intention is to simulate a &lsquo;real-life&rsquo; workflow, and, as mentioned above, ensure that all the steps are performed on unseen and not-overlapping subsets.</p></li>
+</ul>
+
+<p><strong>The architecture of the Neural Network</strong></p>
+
+<p>The core architecture of the network is built as per below:</p>
+
+<ul>
+<li><p>Using the Keras library we will be implementing a simple multi-layer perceptron neural network. Panchal, Ganatra, Kosta, and Panchal (2011) summarize that MLPs are trained using the standard back-propagation algorithm and essentially, they learn how to transform input data into a desired response. For this reason, the choice of MLP is an appropriate choice as we are dealing with a supervised classification problem.</p></li>
+
+<li><p>Generally , the second most important architectural decision when implementing the neural network is choosing the number of hidden layers. Panchal, Ganatra, Kosta, and Panchal (2011) confirm that MLPs normally are implemented using just 1 hidden layer, and very few problems require 2 hidden layers - which often does not even show a significant improvement on the prediction accuracy. The more complex the neural network is when applied to a small data set, the more chance that the overfitting occurs (Willems, 2017). Therefore, in the first instance, we will be using a neural network with NO hidden layers: that is, our network with only have an input and output layer. Although very controversial, this approach is suitable when we are working with a simple feed-forward network, such as the MLP described above.</p></li>
+
+<li><p>Number of hidden units in the layers: we are choosing the number of hidden units following the suggested rules of thumb Panchal, Ganatra, Kosta, and Panchal (2011): the number of hidden units should be balanced between the input and output layer first of all, and, in case a hidden layer is introduced, it should contain <sup>2</sup>&frasl;<sub>3</sub> of the input units plus the number of units in the output layer. Yet again, we will be working with a fairly small data set where we are expected to predict 3 classes, therefore, to start with, out input layer will contain 12 hidden units, and out output layer will contain 4 hidden units, appropriate for the expected output array. The number of hidden units defines the flexibility of our neural network - as with the hidden layers, the more complicated the network is, the more it is prone to overfitting. In the experiment stage, the intention is to try the alternatives of the hidden units, and explore the effect on the prediction accuracy.</p></li>
+
+<li><p>Activation functions: first of all, the default output layer function will be set to softmax, and will not be amended during the experiments. Mandot(2017), Sharma (2017), Willems (2017) stress that softmax is the appropriate function for the output layer when working with a multi-classification problem, as it is in our case. The input layer, and, in the experiment stage, a hidden layer function will be set to &lsquo;relu&rsquo;, with a possibility to alter fur the purpose of exploration. Sharma (2017) states &lsquo;relu&rsquo; is the most used function in the deep learning field.</p></li>
+
+<li><p>Algorithm optimizer = Adam. Brownlee (2017) summarizes that: &lsquo;Adam is used instead of the classical stochastic gradient descent procedure to update network weights iterative based in training data&rsquo;. To be precise, each parameter is assigned individual learning rates which change throughout the learning phases. (Kingma and Ba, 2014) Our data set is fairly small with a proportionate amount of parameters, therefore, Adam is chosen as the most appropriate and straightforward optimizer which will ensure that our training rate will not be slowed down and the learning rate will be chosen automatically, as required.</p></li>
+</ul>
+
+<p><strong>Tuning the model</strong></p>
+
+<p>We will be implementing the following changes:</p>
+
+<ul>
+<li><p><em>nn_model_2</em>: adding 1 hidden layer with 8 hidden units</p></li>
+
+<li><p><em>nn_model_3</em>: no hidden layer and using activation function &lsquo;tanh&rsquo;</p></li>
+
+<li><p><em>nn_model_4</em>: no hidden layers, activation &lsquo;relu&rsquo;, and less hidden units in the input layer</p></li>
+
+<li><p><em>nn_model_5</em>: no hidden layers, activation ‘relu’ but SGD optimizer</p></li>
+
+<li><p><em>nn_model_6</em>: no hidden layer with more hidden units in the input layer</p></li>
+</ul>
+
+<hr />
+
+<p><strong>Step 1 - preparing the data</strong></p>
+
+<ul>
+<li>Creating Pandas data frame</li>
+</ul>
+
+<pre><code class="language-python">df=pd.read_csv('wineset.csv', header=None)
+df.columns=(['Type', 'Alcohol', 'Malic', 'Ash', 
+                    'Alcalinity', 'Magnesium', 'Phenols', 
+                    'Flavanoids', 'Nonflavanoids',
+                    'Proanthocyanins', 'Color', 'Hue', 
+                    'Dilution', 'Proline'])
+                    
+
+</code></pre>
+
+<ul>
+<li><p>Splitting the data into Train and Test subsets</p></li>
+
+<li><p>Train will be further split into 2 halves for training and validation</p></li>
+
+<li><p>Test will be used to test the final models</p></li>
+
+<li><p>(1) - preparing the data*</p></li>
+</ul>
+
+<pre><code class="language-python">
+
+Train = df.sample(n=140)
+
+Test = df.drop(Train.index)
+
+
+
+#check if all 3 classes are represented, and what the distribution is. This may affect the accuracy/validity of the model
+Test['Type'].hist()
+plt.show()
+
+#check if all 3 classes are represented, and what the distribution is. This may affect the accuracy/validity of the model
+Train['Type'].hist()
+plt.show()
+
+
+
+</code></pre>
+
+<p><img src="/images/output_13_0.png" alt="alt text" /></p>
+
+<p><img src="/images/output_13_1.png" alt="alt text" /></p>
+
+<pre><code class="language-python">#split function will divide the half of the test set used for training into test and train subsets so we can evaluate our training score 
+
+def split(data):
+    # Specify the data 
+    X1=data.ix[:,1:13]
+
+    # Specify the target 
+    y1= np.ravel(data.Type)
+
+    # Split the data up in train and test sets
+    X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, test_size=0.33, random_state=1)
+    return (X1_train, X1_test, y1_train, y1_test)
+
+
+#train function will transform the data (scale and hot encode) and use it for the model we have built 
+
+def train(model,X1_train,y1_train):
+
+    # Import `train_test_split` from `sklearn.model_selection`
+    from sklearn.model_selection import train_test_split
+
+    
+    
+    #hot encofing the response variable
+    from keras.utils import to_categorical
+    y1_train_hot=to_categorical(y1_train)
+    
+
+    # scale the data set - ensure test and train data is done in the same way 
+    # Import `StandardScaler` from `sklearn.preprocessing`
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler().fit(X1_train)
+
+    
+    # Scale the train set
+    X1_train = scaler.transform(X1_train)
+
+    
+    #fit the model
+    model.fit(X1_train, y1_train_hot,epochs=20, batch_size=1, verbose=0)
+
+    return model 
+
+
+#score function will scale the test subset in the training phase and produce the score of the model once uset with the test subset
+
+
+def score(model,X1_test, y1_test,X1_train):
+    y1_test_hot=to_categorical(y1_test)
+
+    # Define the scaler 
+    scaler = StandardScaler().fit(X1_train)
+
+    # Scale the test set
+    X1_test = scaler.transform(X1_test)    
+    
+    
+    #y1_pred = model.predict(X_test)
+    #score = model.evaluate(X1_test, y1_test_hot,verbose=1)
+    score_result = model.evaluate(X1_test, y1_test_hot,verbose=0)
+
+
+    return  score_result
+
+
+
+</code></pre>
+
+<h5 id="step-1-building-and-implementing-the-default-nn-model">STEP 1 - building and implementing the default NN model</h5>
+
+<pre><code class="language-python">def nn_model_1():
+    #BUILD THE NN MODEL HERE 
+    # Import `Sequential` from `keras.models`
+    from keras.models import Sequential
+
+    # Import `Dense` from `keras.layers`
+    from keras.layers import Dense
+
+    # Initialize the constructor
+    model = Sequential()
+
+    # Add an input layer 
+    model.add(Dense(13, activation='relu', input_shape=(12,)))
+
+    # Add one hidden layer 
+    #model.add(Dense(8, activation='relu'))
+
+    # Add an output layer 
+    model.add(Dense(4, activation='softmax'))
+
+
+    #compile the model here 
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])    
+    
+    return  model
+
+
+</code></pre>
+
+<pre><code class="language-python">Step1 = Train.sample(n=71) # data used for Step 1 - implementatio of the default model and 'tuned' models
+Step2 = Train.drop(Step1.index)  # data used for Step 2 - k-fold cross validation
+</code></pre>
+
+<pre><code class="language-python">##NN with 1 hidden layer
+
+def nn_model_2():
+    #BUILD THE NN MODEL HERE 
+    # Import `Sequential` from `keras.models`
+    from keras.models import Sequential
+
+    # Import `Dense` from `keras.layers`
+    from keras.layers import Dense
+
+    # Initialize the constructor
+    model = Sequential()
+
+    # Add an input layer 
+    model.add(Dense(13, activation='relu', input_shape=(12,)))
+
+    # Add one hidden layer 
+    model.add(Dense(8, activation='relu'))
+
+    # Add an output layer 
+    model.add(Dense(4, activation='softmax'))
+
+
+    #compile the model here 
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])    
+    
+    return  model
+</code></pre>
+
+<pre><code class="language-python">##NN no hidden layers and activation function 'tanh'
+
+def nn_model_3():
+    #BUILD THE NN MODEL HERE 
+    # Import `Sequential` from `keras.models`
+    from keras.models import Sequential
+
+    # Import `Dense` from `keras.layers`
+    from keras.layers import Dense
+
+    # Initialize the constructor
+    model = Sequential()
+
+    # Add an input layer 
+    model.add(Dense(13, activation='tanh', input_shape=(12,)))
+
+    #Add one hidden layer 
+    #model.add(Dense(8, activation='relu'))
+
+    # Add an output layer 
+    #model.add(Dense(4, activation='softmax'))
+
+
+    #compile the model here 
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])    
+    
+    return  model
+</code></pre>
+
+<pre><code class="language-python">##NN  no hidden layers, activation 'relu', and less hidden units in the input layer 
+
+def nn_model_4():
+    #BUILD THE NN MODEL HERE 
+    # Import `Sequential` from `keras.models`
+    from keras.models import Sequential
+
+    # Import `Dense` from `keras.layers`
+    from keras.layers import Dense
+
+    # Initialize the constructor
+    model = Sequential()
+
+    # Add an input layer 
+    model.add(Dense(5, activation='relu', input_shape=(12,)))
+
+    #Add one hidden layer 
+    #model.add(Dense(8, activation='relu'))
+
+    # Add an output layer 
+    model.add(Dense(4, activation='softmax'))
+
+
+    #compile the model here 
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])    
+    
+    return  model
+</code></pre>
+
+<pre><code class="language-python">##NN no hidden layers, activation relu but SGD optimizer 
+
+def nn_model_5():
+    #BUILD THE NN MODEL HERE 
+    # Import `Sequential` from `keras.models`
+    from keras.models import Sequential
+    from keras.optimizers import RMSprop
+
+    # Import `Dense` from `keras.layers`
+    from keras.layers import Dense
+
+    # Initialize the constructor
+    model = Sequential()
+
+    # Add an input layer 
+    model.add(Dense(13, activation='relu', input_shape=(12,)))
+
+    # Add one hidden layer 
+    #model.add(Dense(8, activation='relu'))
+
+    # Add an output layer 
+    model.add(Dense(4, activation='softmax'))
+
+
+    #compile the model here 
+    rmsprop = RMSprop(lr=0.0001)
+    model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])    
+    
+    return  model
+</code></pre>
+
+<pre><code class="language-python">##NN no hidden layer with more hidden units in the input layer 
+def nn_model_6():
+    #BUILD THE NN MODEL HERE 
+    # Import `Sequential` from `keras.models`
+    from keras.models import Sequential
+  
+
+    # Import `Dense` from `keras.layers`
+    from keras.layers import Dense
+
+    # Initialize the constructor
+    model = Sequential()
+
+    # Add an input layer 
+    model.add(Dense(39, activation='relu', input_shape=(12,)))
+
+    #Add one hidden layer 
+    #model.add(Dense(8, activation='relu'))
+
+    # Add an output layer 
+    model.add(Dense(4, activation='softmax'))
+
+
+    #compile the model here 
+    
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])    
+    
+    return  model
+
+
+</code></pre>
+
+<pre><code class="language-python">(x1_train,x1_test,y1_train,y1_test) = split(Step1)
+
+defaultmodel=train(nn_model_1(),x1_train, y1_train)
+
+defaultresult=score(defaultmodel,x1_test, y1_test, x1_train)
+
+print(defaultresult)
+</code></pre>
+
+<pre><code>[0.21488393843173981, 0.95833331346511841]
+</code></pre>
+
+<pre><code class="language-python">from sklearn.metrics import classification_report
+</code></pre>
+
+<pre><code class="language-python">ypred_default = defaultmodel.predict(x1_test)
+scaler = StandardScaler().fit(x1_train)
+x1_test = scaler.transform(x1_test)
+ypred_default1 = np.argmax(ypred_default, axis=1) 
+print(classification_report(y1_test,ypred_default1))
+</code></pre>
+
+<pre><code>             precision    recall  f1-score   support
+
+          1       0.86      1.00      0.92         6
+          2       1.00      0.92      0.96        13
+          3       1.00      1.00      1.00         5
+
+avg / total       0.96      0.96      0.96        24
+</code></pre>
+
+<pre><code class="language-python">#produce train and test subsets for the training phase 
+(x1_train,x1_test,y1_train,y1_test) = split(Step1)
+
+
+scores =  [] 
+model_names = []
+
+# run experiments and compare how the original model (nn_mode_1) compares to the 'tuned' models 
+step1_results = []
+for model_f in  [ nn_model_2, nn_model_3, nn_model_4, nn_model_5, nn_model_6]:
+    
+    model = model_f()
+    
+    print (&quot;Training model&quot;, str(model_f))
+    trained_model = train(model, x1_train, y1_train)
+    print (&quot;Done&quot;, str(model))
+
+    score_results = score(trained_model, x1_test, y1_test, x1_train)
+    perc = score_results[1]
+    
+    scores.append(perc)
+    model_names.append(str(model_f))
+    
+    row = {&quot;model&quot;:str(model_f), &quot;trained_model&quot;:trained_model, &quot;xtrain&quot;:x1_train}
+    #print (&quot;hash: &quot;, trained_model)
+    step1_results.append(row)
+  
+# visualise results 
+results_df =  pd.DataFrame({&quot;scores&quot;:scores, &quot;model&quot;:model_names})
+print(results_df)
+g = results_df.groupby(&quot;model&quot;)
+g.max().scores.plot(kind=&quot;bar&quot;)
+
+</code></pre>
+
+<pre><code>Training model &lt;function nn_model_2 at 0x000002A347A6EB70&gt;
+Done &lt;keras.models.Sequential object at 0x000002A34CEE5828&gt;
+Training model &lt;function nn_model_3 at 0x000002A330D7F8C8&gt;
+Done &lt;keras.models.Sequential object at 0x000002A3481638D0&gt;
+Training model &lt;function nn_model_4 at 0x000002A347AC0C80&gt;
+Done &lt;keras.models.Sequential object at 0x000002A34DBDB748&gt;
+Training model &lt;function nn_model_5 at 0x000002A347C117B8&gt;
+Done &lt;keras.models.Sequential object at 0x000002A34F144470&gt;
+Training model &lt;function nn_model_6 at 0x000002A347C24048&gt;
+Done &lt;keras.models.Sequential object at 0x000002A34F5F38D0&gt;
+                                         model    scores
+0  &lt;function nn_model_2 at 0x000002A347A6EB70&gt;  0.958333
+1  &lt;function nn_model_3 at 0x000002A330D7F8C8&gt;  0.958333
+2  &lt;function nn_model_4 at 0x000002A347AC0C80&gt;  0.750000
+3  &lt;function nn_model_5 at 0x000002A347C117B8&gt;  0.958333
+4  &lt;function nn_model_6 at 0x000002A347C24048&gt;  0.958333
+
+
+
+
+
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x2a3464fd668&gt;
+</code></pre>
+
+<p><img src="/images/output_26_2.png" alt="alt text" /></p>
+
+      </div>
+    </article>
+    <aside class="ph3 mt2 mt6-ns">
+      
+
+
+
+
+
+
+
+  <div class="bg-light-gray pa3">
+    <ul>
+      <li class="list b mb3">
+        3 More Posts
+      </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-4th-post/" class="link ph2 pv2 db black o-50">
+            Neural Network - Python
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-3rd-post/" class="link ph2 pv2 db black">
+            DecisionTree - Python
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-2nd-post/" class="link ph2 pv2 db black">
+            Deep learning and Neural Networks
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-first-post/" class="link ph2 pv2 db black">
+            KNN - Python
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+    </aside>
+  </div>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://gabidan.github.io/" >
+    &copy; 2018 Gabi Data Science journey
+  </a>
+  
+
+
+
+
+
+
+
+
+  </div>
+</footer>
+
+    <script src="https://gabidan.github.io/dist/app.bundle.js" async></script>
+
+  </body>
+</html>
