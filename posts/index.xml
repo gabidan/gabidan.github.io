@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Gabi Data Science journey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 03 Feb 2018 19:10:36 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Feb 2018 19:50:58 +0000</lastBuildDate>
     
 	<atom:link href="https://gabidan.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>DecisionTree - Python</title>
+      <link>https://gabidan.github.io/posts/my-3rd-post/</link>
+      <pubDate>Sun, 04 Feb 2018 19:50:58 +0000</pubDate>
+      
+      <guid>https://gabidan.github.io/posts/my-3rd-post/</guid>
+      <description>Following the initial exploration of the Wine Data set this post uses the DecisionTreeClassifier from Python&amp;rsquo;s scikit-learn to predict 3 different wine cultivars.
+Source: https://dataaspirant.com/2017/02/01/decision-tree-algorithm-python-with-scikit-learn/
+Step 1 - preparing the data
+ Creating Pandas data frame  df=pd.read_csv(&#39;wineset.csv&#39;, header=None) df.columns=([&#39;Type&#39;, &#39;Alcohol&#39;, &#39;Malic&#39;, &#39;Ash&#39;, &#39;Alcalinity&#39;, &#39;Magnesium&#39;, &#39;Phenols&#39;, &#39;Flavanoids&#39;, &#39;Nonflavanoids&#39;, &#39;Proanthocyanins&#39;, &#39;Color&#39;, &#39;Hue&#39;, &#39;Dilution&#39;, &#39;Proline&#39;])   Spliting the data into feature set (x) and target set (y)  x = df.values[:, 1:13] y = df.</description>
+    </item>
     
     <item>
       <title>Deep learning and Neural Networks</title>
