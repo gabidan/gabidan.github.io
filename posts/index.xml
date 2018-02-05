@@ -6,10 +6,27 @@
     <description>Recent content in Posts on Gabi Data Science journey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Feb 2018 20:57:51 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Feb 2018 21:59:42 +0000</lastBuildDate>
     
 	<atom:link href="https://gabidan.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Web scraping using BeautifulSoup</title>
+      <link>https://gabidan.github.io/posts/my-5th-post/</link>
+      <pubDate>Mon, 05 Feb 2018 21:59:42 +0000</pubDate>
+      
+      <guid>https://gabidan.github.io/posts/my-5th-post/</guid>
+      <description>STEP 1
+Import the libraries:
+import requests from bs4 import BeautifulSoup  STEP 2
+Exctract the content from the URL link using requests
+r=requests.get(&#39;https://www.google.co.uk/search?dcr=0&amp;amp;ei=G794WtO5JYvQgAa6vZ2ADQ&amp;amp;q=wine&amp;amp;oq=wine&amp;amp;gs_l=psy-ab.3..35i39k1l2j0i67k1l6j0l2.104732.105106.0.105340.4.4.0.0.0.0.113.356.3j1.4.0....0...1c.1.64.psy-ab..0.4.355...0i131i67k1j0i131k1.0.78ZBlejiypk&#39;, headers=headers)  STEP 3
+Store the content of the URL in a BeautifulSoup variable:
+soup = BeautifulSoup(data)  STEP 4
+Identify the tag on the website which stores the info you are interested in:
+ right click on the content you are interested on your chosen website</description>
+    </item>
     
     <item>
       <title>Neural Network - Python</title>

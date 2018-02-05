@@ -32,7 +32,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-02-04T20:57:51&#43;00:00"/>
+<meta property="og:updated_time" content="2018-02-05T21:59:42&#43;00:00"/>
 
 
 
@@ -125,6 +125,38 @@
       
       <div class="blah w-100">
         <h1 class="f3 fw1 athelas mt0 lh-title">
+          <a href="/posts/my-5th-post/" class="color-inherit dim link">
+            Web scraping using BeautifulSoup
+            </a>
+        </h1>
+        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+          STEP 1
+Import the libraries:
+import requests from bs4 import BeautifulSoup  STEP 2
+Exctract the content from the URL link using requests
+r=requests.get('https://www.google.co.uk/search?dcr=0&amp;ei=G794WtO5JYvQgAa6vZ2ADQ&amp;q=wine&amp;oq=wine&amp;gs_l=psy-ab.3..35i39k1l2j0i67k1l6j0l2.104732.105106.0.105340.4.4.0.0.0.0.113.356.3j1.4.0....0...1c.1.64.psy-ab..0.4.355...0i131i67k1j0i131k1.0.78ZBlejiypk', headers=headers)  STEP 3
+Store the content of the URL in a BeautifulSoup variable:
+soup = BeautifulSoup(data)  STEP 4
+Identify the tag on the website which stores the info you are interested in:
+ right click on the content you are interested on your chosen website
+        </div>
+          <a href="/posts/my-5th-post/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+          </div>
+        
+          <div class="relative w-100 mb4">
+            
+<article class="bb b--black-10">
+  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
+    <div class="flex flex-column flex-row-ns">
+      
+      <div class="blah w-100">
+        <h1 class="f3 fw1 athelas mt0 lh-title">
           <a href="/posts/my-4th-post/" class="color-inherit dim link">
             Neural Network - Python
             </a>
@@ -170,43 +202,18 @@ Step 1 - preparing the data
 
           </div>
         
-          <div class="relative w-100 mb4">
-            
-<article class="bb b--black-10">
-  <div class="db pv4 ph3 ph0-l no-underline dark-gray">
-    <div class="flex flex-column flex-row-ns">
-      
-      <div class="blah w-100">
-        <h1 class="f3 fw1 athelas mt0 lh-title">
-          <a href="/posts/my-2nd-post/" class="color-inherit dim link">
-            Deep learning and Neural Networks
-            </a>
-        </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-          Source: https://www.youtube.com/watch?v=DBVLcgq2Eg0&amp;t=477s
-Neural Networks:
- Image Understanding (semantic segmentation - NN captures some details of the image)
- Machine Translation
- Smart Apps (image recognition using a camera, for example)
- Robotics (NN network is learning a task from a video)
- Synthesizing/generating faces
- Image transformation (NN doesn&rsquo;t know what is an object a or b, it learns both after getting it as an input and performs a transformation)
-        </div>
-          <a href="/posts/my-2nd-post/" class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-          </div>
-        
       </section>
 
       
       <section class="w-100">
         <h1 class="f3">More</h1>
         
+        
+          <h2 class="f5 fw4 mb4 dib mr3">
+            <a href="/posts/my-2nd-post/" class="link black dim">
+              Deep learning and Neural Networks
+            </a>
+          </h2>
         
           <h2 class="f5 fw4 mb4 dib mr3">
             <a href="/posts/my-first-post/" class="link black dim">
