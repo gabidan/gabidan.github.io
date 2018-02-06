@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Gabi Data Science journey</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Feb 2018 21:59:42 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Feb 2018 20:37:42 +0000</lastBuildDate>
     
 	<atom:link href="https://gabidan.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cross-Validation: k-folds</title>
+      <link>https://gabidan.github.io/posts/my-6th-post/</link>
+      <pubDate>Tue, 06 Feb 2018 20:37:42 +0000</pubDate>
+      
+      <guid>https://gabidan.github.io/posts/my-6th-post/</guid>
+      <description>Cross-Validation
+A model validation technique used when working on supervised Machine Learning problems. The goal of cross validation is to define a dataset to &amp;ldquo;test&amp;rdquo; the model in the training phase (i.e., the validation set), in order to limit problems like overfitting, give an insight on how the model will generalize to an independent/unseen dataset. Cross-Validation involves splitting sample data into further subsets where training set is used to perform the analysis and tesr (or validation) set is used to validate the results.</description>
+    </item>
     
     <item>
       <title>Web scraping using BeautifulSoup</title>

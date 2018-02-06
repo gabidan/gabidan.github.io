@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Gabi Data Science journey  | Cross-Validation: k-folds</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="generator" content="Hugo 0.26" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    <link href='https://gabidan.github.io/dist/main.css' rel='stylesheet' type="text/css" />
+    
+      
+    
+
+    
+
+    <meta property="og:title" content="Cross-Validation: k-folds" />
+<meta property="og:description" content="Cross-Validation
+A model validation technique used when working on supervised Machine Learning problems. The goal of cross validation is to define a dataset to &ldquo;test&rdquo; the model in the training phase (i.e., the validation set), in order to limit problems like overfitting, give an insight on how the model will generalize to an independent/unseen dataset. Cross-Validation involves splitting sample data into further subsets where training set is used to perform the analysis and tesr (or validation) set is used to validate the results." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gabidan.github.io/posts/my-6th-post/" />
+
+
+
+<meta property="article:published_time" content="2018-02-06T20:37:42&#43;00:00"/>
+<meta property="article:modified_time" content="2018-02-06T20:37:42&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Cross-Validation: k-folds">
+<meta itemprop="description" content="Cross-Validation
+A model validation technique used when working on supervised Machine Learning problems. The goal of cross validation is to define a dataset to &ldquo;test&rdquo; the model in the training phase (i.e., the validation set), in order to limit problems like overfitting, give an insight on how the model will generalize to an independent/unseen dataset. Cross-Validation involves splitting sample data into further subsets where training set is used to perform the analysis and tesr (or validation) set is used to validate the results.">
+
+
+<meta itemprop="dateModified" content="2018-02-06T20:37:42&#43;00:00" />
+<meta itemprop="wordCount" content="319">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Cross-Validation: k-folds"/>
+<meta name="twitter:description" content="Cross-Validation
+A model validation technique used when working on supervised Machine Learning problems. The goal of cross validation is to define a dataset to &ldquo;test&rdquo; the model in the training phase (i.e., the validation set), in order to limit problems like overfitting, give an insight on how the model will generalize to an independent/unseen dataset. Cross-Validation involves splitting sample data into further subsets where training set is used to perform the analysis and tesr (or validation) set is used to validate the results."/>
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="https://gabidan.github.io/" class="f3 fw2 hover-white no-underline white-90 dib">
+      Gabi Data Science journey
+    </a>
+    <div class="flex-l items-center">
+      
+      
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <div class="flex-l mt2 mw8 center">
+    <article class="center cf pv5 ph3 ph4-ns mw7">
+      <header>
+        <p class="f6 b helvetica tracked">
+          POSTS
+        </p>
+        <h1 class="f1">
+          Cross-Validation: k-folds
+        </h1>
+      </header>
+      <div class="nested-copy-line-height lh-copy f4 nested-links nested-img mid-gray">
+        <p><strong>Cross-Validation</strong></p>
+
+<p>A model validation technique used when working on supervised Machine Learning problems.
+The goal of cross validation is to define a dataset to &ldquo;test&rdquo; the model in the training phase (i.e., the validation set), in order to limit problems like overfitting, give an insight on how the model will generalize to an independent/unseen dataset.
+Cross-Validation involves splitting sample data into further subsets where training set is used to perform the analysis and tesr (or validation) set is used to validate the results.</p>
+
+<p>Eventually, after a chosen number of cross-validation rounds , an average of prediction error is produced to estimate a more accurate model performance.</p>
+
+<p><strong>K-folds</strong></p>
+
+<p>The simplest form of cross-validation randomly separates the available data into a single training set and a single test set.<br />
+The idea behind k-fold cross-validation is to divide all the available data items into roughly equal-sized sets. Each set is used exactly once as the test set while the remaining data is used as the training set.</p>
+
+<p><strong>K-folds and NN</strong></p>
+
+<p>When applied to several neural networks with different free parameter values (such as the number of hidden nodes, back-propagation learning rate, and so on), the results of cross-validation can be used to select the best set of parameter values.
+Usually between 10% and 20% of the overall data set is used to perfmorn k-folds when evaluating NN model.
+Essentially, k-folds will be splitting the data into training and testing subsets a chosen number of times and producing the avegare misclassification result.</p>
+
+<p><strong>K-folds and KNN</strong></p>
+
+<p>Similarly as with the neural networks, performing cross validation on KNN model helps to select the free parameters which can be adjusted to improve the molde performance.
+&lsquo;The number of neighbours&rsquo; (k) is the key parameter in KNN algorithm, therefore, k-fold cross validation would not only split the validation set into training and testing subsets, but also apply a different number of neighbours to test in each fold.</p>
+
+      </div>
+    </article>
+    <aside class="ph3 mt2 mt6-ns">
+      
+
+
+
+
+
+
+
+  <div class="bg-light-gray pa3">
+    <ul>
+      <li class="list b mb3">
+        5 More Posts
+      </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-6th-post/" class="link ph2 pv2 db black o-50">
+            Cross-Validation: k-folds
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-5th-post/" class="link ph2 pv2 db black">
+            Web scraping using BeautifulSoup
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-4th-post/" class="link ph2 pv2 db black">
+            Neural Network - Python
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-3rd-post/" class="link ph2 pv2 db black">
+            DecisionTree - Python
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-2nd-post/" class="link ph2 pv2 db black">
+            Deep learning and Neural Networks
+          </a>
+        </li>
+      
+        <li class="list f5 w-100 hover-bg-white nl1">
+          
+          <a href="/posts/my-first-post/" class="link ph2 pv2 db black">
+            KNN - Python
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+    </aside>
+  </div>
+
+    </main>
+    <footer class="bg-near-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://gabidan.github.io/" >
+    &copy; 2018 Gabi Data Science journey
+  </a>
+  
+
+
+
+
+
+
+
+
+  </div>
+</footer>
+
+    <script src="https://gabidan.github.io/dist/app.bundle.js" async></script>
+
+  </body>
+</html>
